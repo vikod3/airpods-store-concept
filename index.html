@@ -1,13 +1,241 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AirPods Store Concept</title>
-  <meta http-equiv="refresh" content="0; url=./Audio%20Store%20Screens.dc.html">
-  <link rel="canonical" href="./Audio%20Store%20Screens.dc.html">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-  <p>Redirecting to the <a href="./Audio%20Store%20Screens.dc.html">store concept</a>&hellip;</p>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<style>
+  html, body { margin: 0; padding: 0; background: #F6E2DE; }
+  a { color: #1a1a1a; text-decoration: none; }
+  a:hover { color: #e2574c; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-thin.otf') format('opentype'); font-weight: 100; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-extralight.otf') format('opentype'); font-weight: 200; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-light.otf') format('opentype'); font-weight: 300; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-regular.otf') format('opentype'); font-weight: 400; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-medium.otf') format('opentype'); font-weight: 500; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-bold.otf') format('opentype'); font-weight: 700; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-extrabold.otf') format('opentype'); font-weight: 800; font-style: normal; }
+  @font-face { font-family: 'Substance'; src: url('assets/fonts/substance-black.otf') format('opentype'); font-weight: 900; font-style: normal; }
+
+  /* ============================================================
+     Motion system — scoped to the phone-screen UI only.
+     Entry animations only (no hover/interaction effects).
+     Transform/opacity only (GPU, 60fps). animation-fill-mode:
+     backwards keeps elements hidden until their turn, then they
+     settle to their natural style.
+     ============================================================ */
+  @keyframes dcRise   { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes dcRiseSm { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes dcFade   { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes dcInLeft { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes dcPop    { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  @keyframes dcScale  { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+  @keyframes dcRiseC  { from { opacity: 0; transform: translateX(-50%) translateY(18px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  @keyframes dcKen    { from { transform: scale(1.16); } to { transform: scale(1); } }
+
+  .dc-a      { animation-duration: 0.85s; animation-fill-mode: backwards; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  .dc-rise   { animation-name: dcRise; }
+  .dc-risesm { animation-name: dcRiseSm; }
+  .dc-fade   { animation-name: dcFade; }
+  .dc-inleft { animation-name: dcInLeft; }
+  .dc-pop    { animation-name: dcPop; animation-timing-function: cubic-bezier(0.34, 1.5, 0.5, 1); }
+  .dc-scale  { animation-name: dcScale; animation-duration: 1s; }
+  .dc-risec  { animation-name: dcRiseC; }
+
+  .dc-d1 { animation-delay: 0.08s; } .dc-d2 { animation-delay: 0.16s; }
+  .dc-d3 { animation-delay: 0.26s; } .dc-d4 { animation-delay: 0.36s; }
+  .dc-d5 { animation-delay: 0.46s; } .dc-d6 { animation-delay: 0.58s; }
+  .dc-d7 { animation-delay: 0.70s; } .dc-d8 { animation-delay: 0.84s; }
+  .dc-d9 { animation-delay: 1.00s; } .dc-d10 { animation-delay: 1.16s; }
+
+  /* staggered children for rows & grids */
+  .dc-stagger > *, .dc-stagger2 > * { animation: dcRiseSm 0.8s backwards cubic-bezier(0.22, 1, 0.36, 1); }
+  .dc-stagger  > *:nth-child(1) { animation-delay: 0.38s; }
+  .dc-stagger  > *:nth-child(2) { animation-delay: 0.50s; }
+  .dc-stagger  > *:nth-child(3) { animation-delay: 0.62s; }
+  .dc-stagger  > *:nth-child(4) { animation-delay: 0.74s; }
+  .dc-stagger  > *:nth-child(5) { animation-delay: 0.86s; }
+  .dc-stagger2 > *:nth-child(1) { animation-delay: 0.64s; }
+  .dc-stagger2 > *:nth-child(2) { animation-delay: 0.76s; }
+  .dc-stagger2 > *:nth-child(3) { animation-delay: 0.88s; }
+  .dc-stagger2 > *:nth-child(4) { animation-delay: 1.00s; }
+
+  /* hero background: fade in + very slow cinematic ken-burns drift */
+  .dc-hero-img { animation: dcFade 1.4s backwards ease, dcKen 16s 0.1s ease-out both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dc-a, .dc-hero-img, .dc-stagger > *, .dc-stagger2 > * { animation: none !important; }
+  }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; box-sizing: border-box; background: #F6E2DE;">
+<div style="display: flex; gap: 28px; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; font-family: 'Substance', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif; zoom: 0.744;">
+
+  <!-- ============ SCREEN 1 : Hero ============ -->
+  <div data-screen-label="Hero" class="dc-a dc-fade" style="width: 390px; height: 844px; border-radius: 44px; box-shadow: 0 30px 60px rgba(190, 120, 110, 0.28); overflow: hidden; position: relative; flex-shrink: 0; background: #F3B7AE;">
+    <img src="assets/hero-closeup.png" alt="Airpods Max close-up" class="dc-hero-img" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
+
+    <!-- new arrivals badge -->
+    <div class="dc-a dc-inleft dc-d3 dc-press" style="position: absolute; top: 36px; left: 24px; background: #ffffff; border-radius: 999px; padding: 12px 20px; font-size: 13px; font-weight: 500; color: #111111; white-space: nowrap; box-shadow: 0 8px 20px rgba(160, 80, 70, 0.18);">20 new arrivals 🔥</div>
+
+    <!-- play button -->
+    <div class="dc-a dc-pop dc-d6 dc-play" style="position: absolute; top: 268px; right: 19px; width: 120px; height: 124px;">
+      <svg width="100%" height="100%" viewBox="0 0 162 168" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <defs>
+          <radialGradient id="btn" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"  stop-color="#FCB6AD"/>
+            <stop offset="38%" stop-color="#F79A8F"/>
+            <stop offset="60%" stop-color="#F97F71"/>
+            <stop offset="84%" stop-color="#F0685B"/>
+            <stop offset="100%" stop-color="#E5665B"/>
+          </radialGradient>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="74%" stop-color="#FC8E7F" stop-opacity="0.1"/>
+            <stop offset="80%" stop-color="#FC8E7F" stop-opacity="0.85"/>
+            <stop offset="88%" stop-color="#FC9184" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#FC9184" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="triGlow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="3.2"/>
+          </filter>
+        </defs>
+        <circle cx="78.7" cy="85.4" r="64.4" stroke="#FFE8DD" stroke-width="2"/>
+        <circle cx="78.7" cy="85.4" r="44.4" stroke="#FFE8DD" stroke-width="2"/>
+        <circle cx="78.7" cy="85.4" r="40" fill="url(#glow)"/>
+        <circle cx="78.7" cy="85.4" r="30.5" fill="url(#btn)"/>
+        <path d="M75 80.5 L75 91.5 L85 86 Z" fill="#E3E4E0" stroke="#E3E4E0" stroke-width="6" stroke-linejoin="round" opacity="0.85" filter="url(#triGlow)"/>
+        <path d="M75 80.5 L75 91.5 L85 86 Z" fill="#FCFEFC" stroke="#FCFEFC" stroke-width="3" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- headline -->
+    <div style="position: absolute; left: 28px; bottom: 150px;">
+      <div class="dc-a dc-rise dc-d4" style="font-size: 32px; color: #d6837b; font-weight: 200; letter-spacing: 0.5px; -webkit-text-stroke: 1.5px #d6837b; margin-bottom: 6px;">· old tracks ·</div>
+      <div class="dc-a dc-rise dc-d5" style="font-size: 75px; line-height: 0.95; font-weight: 500; letter-spacing: -1px; color: #ffffff; margin-top: 6px; text-shadow: 0 2px 18px rgba(120, 40, 30, 0.18);">With new sounds</div>
+    </div>
+
+    <!-- home indicator -->
+    <div class="dc-a dc-fade dc-d8" style="position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; width: 120px; height: 5px; border-radius: 999px; background: rgba(255, 255, 255, 0.65);"></div>
+  </div>
+
+  <!-- ============ SCREEN 2 : New arrivals ============ -->
+  <div data-screen-label="New arrivals" class="dc-a dc-fade dc-d1" style="width: 390px; height: 844px; background: #fdbdb4; border-radius: 44px; box-shadow: 0 30px 60px rgba(190, 120, 110, 0.28); overflow: hidden; position: relative; display: flex; flex-direction: column; flex-shrink: 0;">
+
+    <!-- top bar: search + avatar -->
+    <div class="dc-stagger" style="display: flex; align-items: center; gap: 26px; padding: 50px 24px 20px 24px;">
+      <div class="dc-search" style="flex: 1; display: flex; align-items: center; gap: 12px; background: #ffffff; border-radius: 999px; height: 52px; padding: 0 20px; box-sizing: border-box;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+        <span style="font-size: 15px; font-weight: 400; color: #000000;">search</span>
+      </div>
+      <div class="dc-avatar" style="width: 52px; height: 52px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #d9a79e;">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=faces" alt="profile" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+    </div>
+
+    <!-- new arrivals sheet -->
+    <div style="flex: 1; background: #FBE7E2; border-radius: 60px 60px 0 0; margin: 26px 0 0 0; padding: 56px 20px 0 20px; display: flex; flex-direction: column; overflow: hidden;">
+
+      <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+        <h1 class="dc-a dc-rise dc-d4" style="margin: 0; font-size: 38px; line-height: 1.05; font-weight: 400; letter-spacing: -0.5px; color: #111111; -webkit-text-stroke: 0.6px #111111;">New<br>arrivals</h1>
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round" class="dc-a dc-fade dc-d5 dc-press" style="margin-top: 10px;"><line x1="5" y1="7" x2="19" y2="7"></line><line x1="5" y1="12" x2="14.8" y2="12"></line><line x1="5" y1="17" x2="10.2" y2="17"></line></svg>
+      </div>
+
+      <!-- filter pills -->
+      <div class="dc-stagger" style="display: flex; gap: 18px; margin-top: 22px; margin-right: -34px; white-space: nowrap;">
+        <div class="dc-pill" style="background: #111111; color: #ffffff; font-size: 16px; font-weight: 400; padding: 15px 30px; border-radius: 999px;">All</div>
+        <div class="dc-pill" style="background: transparent; color: #1a1a1a; font-size: 16px; font-weight: 400; padding: 15px 28px; border-radius: 999px; border: 1.5px solid #111111; box-sizing: border-box;">Headphones</div>
+        <div class="dc-pill" style="background: transparent; color: #1a1a1a; font-size: 16px; font-weight: 400; padding: 15px 28px; border-radius: 999px; white-space: nowrap; border: 1.5px solid #111111; box-sizing: border-box;">Speakers</div>
+      </div>
+
+      <!-- product grid -->
+      <div class="dc-stagger2" style="display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 14px; margin-top: 24px; flex: 1; padding-bottom: 40px;">
+        <div class="dc-card" style="background: #f2cfcb; border-radius: 26px; padding: 18px 14px 16px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <img src="assets/airpods-pro.png" alt="Airpods Pro" style="width: 138px; height: 138px; object-fit: contain; display: block; transform-origin: center;">
+          <div style="font-size: 17px; font-weight: 500; color: #111111; margin-top: -4px;">Airpods Pro</div>
+          <div style="font-size: 14px; color: #7c6a66; margin-top: 4px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;">$499.00</div>
+        </div>
+        <div class="dc-card" style="background: #f2cfcb; border-radius: 26px; padding: 18px 14px 16px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <img src="assets/homepod.png" alt="Speakers" style="width: 128px; height: 128px; object-fit: contain; display: block; margin-top: 5px;">
+          <div style="font-size: 17px; font-weight: 500; color: #111111; margin-top: -4px;">Speakers</div>
+          <div style="font-size: 14px; color: #7c6a66; margin-top: 4px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;">$359.00</div>
+        </div>
+        <div class="dc-card" style="background: #f2cfcb; border-radius: 26px; padding: 18px 14px 16px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <img src="assets/headphones.png" alt="Headphones" style="width: 138px; height: 138px; object-fit: contain; display: block;">
+          <div style="font-size: 17px; font-weight: 500; color: #111111; margin-top: -4px;">Headphones</div>
+          <div style="font-size: 14px; color: #7c6a66; margin-top: 4px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;">$650.00</div>
+        </div>
+        <div class="dc-card" style="background: #f2cfcb; border-radius: 26px; padding: 18px 14px 16px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <img src="assets/earphones.png" alt="Earphones" style="width: 138px; height: 138px; object-fit: contain; display: block;">
+          <div style="font-size: 17px; font-weight: 500; color: #111111; margin-top: -4px;">Earphones</div>
+          <div style="font-size: 14px; color: #7c6a66; margin-top: 4px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;">$60.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- floating cart total -->
+    <div class="dc-a dc-risec dc-d9 dc-cart" style="position: absolute; left: 50%; transform: translateX(-50%); bottom: 26px; display: flex; align-items: center; gap: 8px; background: #111111; border-radius: 999px; padding: 6px 6px 6px 18px; box-shadow: 0 12px 28px rgba(60, 20, 15, 0.35);">
+      <span style="color: #ffffff; font-size: 13px; font-weight: 300; letter-spacing: 0.2px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;">$1080.00</span>
+      <div style="width: 30px; height: 30px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; position: relative;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#111111"><path d="M7.05 8a5 5 0 0 1 9.9 0h1.35a1.6 1.6 0 0 1 1.6 1.72l-.72 9.1A3.2 3.2 0 0 1 16 21.8H8a3.2 3.2 0 0 1-3.18-2.98l-.72-9.1A1.6 1.6 0 0 1 5.7 8h1.35zm2.03 0h5.84a3 3 0 0 0-5.84 0z"></path></svg>
+        <div style="position: absolute; top: 9px; right: 8px; width: 5px; height: 5px; border-radius: 50%; background: #e2574c;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SCREEN 2 : Product detail ============ -->
+  <div data-screen-label="Product detail" class="dc-a dc-fade dc-d2" style="width: 390px; height: 844px; background: #fdbdb4; border-radius: 44px; box-shadow: 0 30px 60px rgba(190, 120, 110, 0.28); overflow: hidden; position: relative; display: flex; flex-direction: column; flex-shrink: 0;">
+
+    <!-- top bar -->
+    <div class="dc-stagger" style="display: flex; align-items: center; justify-content: space-between; padding: 38px 28px 0 28px;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff" class="dc-press"><circle cx="6" cy="6" r="1.6"></circle><circle cx="6" cy="12" r="1.6"></circle><circle cx="6" cy="18" r="1.6"></circle></svg>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round" class="dc-press"><line x1="5" y1="7" x2="19" y2="7"></line><line x1="5" y1="12" x2="14.8" y2="12"></line><line x1="5" y1="17" x2="10.2" y2="17"></line></svg>
+    </div>
+
+    <!-- product image -->
+    <div style="display: flex; justify-content: center; padding: 26px 0 0 0;">
+      <img src="assets/headphones.png" alt="Apple Airpods Max" class="dc-a dc-scale dc-d4 dc-press" style="width: 330px; height: 330px; object-fit: contain; display: block;">
+    </div>
+
+    <!-- color swatches -->
+    <div class="dc-stagger" style="display: flex; justify-content: center; gap: 12px; margin-top: -22px;">
+      <div style="width: 72px; height: 72px; border-radius: 22px; background: #FBDFD9; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; border: 11px solid #1e3a6e; box-sizing: border-box;"></div>
+      </div>
+      <div style="width: 72px; height: 72px; border-radius: 22px; background: #FBDFD9; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; border: 11px solid #9fd6a0; box-sizing: border-box;"></div>
+      </div>
+      <div style="width: 72px; height: 72px; border-radius: 22px; background: #FBDFD9; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; border: 11px solid #c9c2c0; box-sizing: border-box;"></div>
+      </div>
+      <div style="width: 72px; height: 72px; border-radius: 22px; background: #FBDFD9; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; border: 11px solid #ef8177; box-sizing: border-box;"></div>
+      </div>
+    </div>
+
+    <!-- bottom sheet -->
+    <div style="flex: 1; background: #FBE7E2; border-radius: 60px 60px 0 0; margin: 28px 0 0 0; padding: 34px 26px 44px 26px; box-sizing: border-box; display: flex; flex-direction: column;">
+      <h1 class="dc-a dc-rise dc-d5" style="margin: 0; font-size: 45px; line-height: 1.1; font-weight: 400; letter-spacing: -0.5px; color: #111111; -webkit-text-stroke: 0.5px #111111;">Apple<br>Airpods</h1>
+      <p class="dc-a dc-rise dc-d6" style="margin: 16px 0 0 0; font-size: 18px; line-height: 1.5; color: #b0a6a1;">A mesh textile wraps the ear cushions<br>to provide pillow-like softness</p>
+      <div class="dc-stagger" style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 24px;">
+        <span style="font-size: 22px; font-weight: 500; color: #111111; -webkit-text-stroke: 0.4px #111111; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;">$499.00</span>
+        <div class="dc-cta" style="display: flex; align-items: center; gap: 6px; background: #F6C6BE; border-radius: 999px; padding: 7px 14px 7px 18px;">
+          <span style="font-size: 15px; font-weight: 500; color: #111111; white-space: nowrap;">Add to cart</span>
+          <div style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="#111111"><path d="M7.05 8a5 5 0 0 1 9.9 0h1.35a1.6 1.6 0 0 1 1.6 1.72l-.72 9.1A3.2 3.2 0 0 1 16 21.8H8a3.2 3.2 0 0 1-3.18-2.98l-.72-9.1A1.6 1.6 0 0 1 5.7 8h1.35zm2.03 0h5.84a3 3 0 0 0-5.84 0z"></path></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</x-dc>
 </body>
 </html>
