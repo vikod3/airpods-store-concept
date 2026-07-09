@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Product Showcase</title>
 <style>
   html, body { margin: 0; padding: 0; background: transparent; }
 
-  #ambient-bg { position: fixed; inset: 0; width: 100vw; height: 100vh; border: 0; margin: 0; padding: 0; z-index: 0; pointer-events: none; background: #F6E2DE; }
-  #dc-root { position: relative; z-index: 1; }
+  #ambient-bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; background: #F6E2DE; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   a { color: #1a1a1a; text-decoration: none; }
   a:hover { color: #e2574c; }
 
@@ -76,7 +76,14 @@
 </style>
 </head>
 <body>
-<iframe id="ambient-bg" src="assets/Ambient%20Background.html" title="" tabindex="-1" aria-hidden="true"></iframe>
+<div id="ambient-bg">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+    <circle cx="600" cy="400" r="260" fill="none" stroke="#e2574c" stroke-width="6" opacity="0.5"></circle>
+    <circle cx="600" cy="400" r="180" fill="none" stroke="#e2574c" stroke-width="6" opacity="0.7"></circle>
+    <circle cx="600" cy="400" r="100" fill="none" stroke="#ffffff" stroke-width="6"></circle>
+    <circle cx="600" cy="400" r="26" fill="#e2574c"></circle>
+  </svg>
+</div>
 
 <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; box-sizing: border-box; background: transparent; position: relative; z-index: 1;">
 <div class="dc-screens" style="display: flex; gap: 28px; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; font-family: 'Substance', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif; zoom: 0.744;">
@@ -285,5 +292,6 @@
 
 </div>
 </div>
+<script type="module" src="/main.js"></script>
 </body>
 </html>
